@@ -262,32 +262,32 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   lengthButton: {
-    backgroundColor: "white", // Set background to white
+    backgroundColor: "white", 
     paddingVertical: 8,
     paddingHorizontal: 12,
-    borderRadius: 20, // Make edges round
+    borderRadius: 20, 
     width: "30%",
     alignItems: "center",
-    borderWidth: 1, // Add border
-    borderColor: "#4A235A", // Dark purple border
+    borderWidth: 1, 
+    borderColor: "#4A235A", 
   },
   selectedLengthButton: {
-    backgroundColor: "#C8A2C8", // Keep the selected color
+    backgroundColor: "#C8A2C8", 
     borderColor: "#4A235A",
   },
   lengthButtonText: {
-    color: "black", // Default text color
+    color: "black", 
     fontSize: 16,
   },
   selectedLengthButtonText: {
-    color: "white", // Text color when selected
+    color: "white", 
   },
   lengthButtonSubText: {
     color: "gray",
     fontSize: 12,
   },
   selectedLengthButtonSubText: {
-    color: "lightgray", // Subtext color when selected
+    color: "lightgray", 
   },
   input: {
     backgroundColor: "#E4EFE7",

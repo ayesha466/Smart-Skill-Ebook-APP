@@ -1,2 +1,4 @@
-node_modules
-*.pdf
+node_modules/   
+server/.env
+server/node_modules/
+ebook/node_modules/

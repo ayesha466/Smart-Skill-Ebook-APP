@@ -13,7 +13,131 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { API } from "../config";
 
-const CategoryBooks = () => {
+// --- Add hardcoded books data ---
+const hardcodedBooks = {
+  "Children's Books": [
+    {
+      id: "big-fish-and-little-fish",
+      title: "Big Fish and Little Fish",
+      author: "Unknown",
+      coverImage: require("../assets/books/2403-Big-Fish-and-Little-Fish-BB-FKB.webp"),
+      file: require("../assets/books/2403-Big-Fish-and-Little-Fish-BB-FKB.pdf"),
+      description: "A story about a big fish and a little fish.",
+      views: 1000,
+    },
+    {
+      id: "hide-and-seek",
+      title: "Hide and Seek",
+      author: "Unknown",
+      coverImage: require("../assets/books/Hide and seek.webp"),
+      file: require("../assets/books/Hide and seek.pdf"),
+      description: "A fun hide and seek story.",
+      views: 800,
+    },
+  ],
+  "Non-Fiction": [
+    {
+      id: "brave-new-world",
+      title: "Brave New World",
+      author: "Aldous Huxley",
+      coverImage: require("../assets/books/brave-new-world-aldous-huxley.jpeg"),
+      file: "https://www.plato-philosophy.org/wp-content/uploads/2016/05/BraveNewWorld-1.pdf",
+      description: "A dystopian social science fiction novel.",
+      views: 12345,
+    },
+    {
+      id: "the-time-machine",
+      title: "The Time Machine",
+      author: "H.G. Wells",
+      coverImage: require("../assets/books/the-time-machine-h-g-wells.jpg"),
+      file: "https://www.fourmilab.ch/etexts/www/wells/timemach/timemach.pdf",
+      description: "A science fiction novel by H. G. Wells, published in 1895.",
+      views: 9876,
+    },
+    {
+      id: "book-of-wisdom",
+      title: "Book Of Wisdom",
+      author: "Unknown",
+      //==========================================================================
+      coverImage: require("../assets/books/Book Of Wisdom.jpg"),
+      file: require("../assets/books/Book Of Wisdom.pdf"),
+      description: "A book of wisdom.",
+      views: 5000,
+    },
+    {
+      id: "the-white-darkness",
+      title: "The White Darkness",
+      author: "Unknown",
+      coverImage: require("../assets/books/The White Darkness - PDF Room.jpg"),
+      file: "https://cdn.bookey.app/files/pdf/book/en/the-white-darkness.pdf",
+      description: "A chilling adventure.",
+      views: 3000,
+    },
+  ],
+  "Quran Stories": [
+    {
+      id: "365-stories",
+      title: "365 Stories",
+      author: "Unknown",
+      coverImage: require("../assets/books/365_stories_.webp"),
+      file: "https://www.islamicbulletin.org/free_downloads/sa/365%20Stories%20Part%202.pdf",
+      description: "Stories from the Quran.",
+      views: 2000,
+    },
+    {
+      id: "angels-belief",
+      title: "Angels: Belief in them",
+      author: "Sh Al Fawzan",
+      coverImage: require("../assets/books/Angels__Belief_in_them__Sh_Al_Fawzan.jpg"),
+      file: "https://www.islamicstudiesresources.com/uploads/1/9/8/1/19819855/belief-in-angels.pdf",
+      description: "A book about angels in Islam.",
+      views: 1500,
+    },
+  ],
+  "Travel & Exploration": [
+    {
+      id: "age-of-exploration",
+      title: "The Age of Exploration",
+      author: "Unknown",
+      coverImage: require("../assets/books/the age of exploration.jpeg"),
+      file: "https://www.coreknowledge.org/wp-content/uploads/2017/03/CKHG_G5_U3_AgeExploration_SR.pdf",
+      description: "Exploring the world.",
+      views: 1200,
+    },
+    {
+      id: "travel-alone",
+      title: "Travel Alone and Love It",
+      author: "Unknown",
+      coverImage: require("../assets/books/Travel-Alone-and-Love-It1.webp"),
+      file: "https://solotravelerworld.com/wp-content/uploads/2009/10/Travel-Alone-and-Love-It1.pdf",
+      description: "Traveling solo.",
+      views: 900,
+    },
+  ],
+  "Urdu Novel": [
+    {
+      id: "pir-e-kamil",
+      title: "Pir e Kamil",
+      author: "Umera Ahmed",
+      coverImage: require("../assets/books/Pir e Kamil By Umera Ahmed.jpg"),
+      file: "https://bookurdunovel.com/wp-content/uploads/2025/07/peer-e-kamil-novel-by-umera-ahmed-book-urdu-novel-4354.pdf",
+      description: "A famous Urdu novel.",
+      views: 4000,
+    },
+    {
+      id: "aab-e-hayat",
+      title: "Aab e Hayat",
+      author: "Umera Ahmed",
+      coverImage: require("../assets/books/Umera Ahmed - Aab e Hayat.jpg"),
+      file: "https://www.urduchannel.in/wp-content/uploads/2018/11/Aab-e-Hayat-Part-2.pdf",
+      description: "Sequel to Pir e Kamil.",
+      views: 3500,
+    },
+  ],
+};
+// --- End hardcoded books data ---
+
+const Categorybooks = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { category } = route.params;
@@ -21,10 +145,10 @@ const CategoryBooks = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchCategoryBooks();
+    fetchCategorybooks();
   }, [category]);
 
-  const fetchCategoryBooks = async () => {
+  const fetchCategorybooks = async () => {
     try {
       setLoading(true);
       const response = await fetch(
@@ -32,9 +156,20 @@ const CategoryBooks = () => {
       );
       const data = await response.json();
 
-      // Fetch complete book data for each book
+      // --- If API returns no books, use hardcoded data ---
+      let booksToShow = data;
+      if (!Array.isArray(data) || data.length === 0) {
+        booksToShow = hardcodedBooks[category] || [];
+      }
+      // If API returns books, but you want to always show both, you can merge:
+      // booksToShow = [...(data || []), ...(hardcodedBooks[category] || [])];
+      // ---
+
       const booksWithContent = await Promise.all(
-        data.map(async (book) => {
+        booksToShow.map(async (book) => {
+          // If book has 'file' (hardcoded), return as is
+          if (book.file) return book;
+          // Otherwise, fetch full book data from API
           try {
             const bookResponse = await fetch(`${API}/books/${book._id}`);
             const completeBookData = await bookResponse.json();
@@ -49,6 +184,9 @@ const CategoryBooks = () => {
       setBooks(booksWithContent);
     } catch (error) {
       console.error("Error fetching category books:", error);
+      // --- On error, use hardcoded data ---
+      setBooks(hardcodedBooks[category] || []);
+      // ---
       Alert.alert("Error", "Failed to load books");
     } finally {
       setLoading(false);
@@ -61,8 +199,9 @@ const CategoryBooks = () => {
       return;
     }
 
-    // Ensure we have the required content before navigating
-    if (!book.content) {
+    const bookContent = book.content || book.file; // Use file for hardcoded books
+
+    if (!bookContent) {
       Alert.alert(
         "Error",
         "This book's content is not available. Please try another book.",
@@ -74,11 +213,11 @@ const CategoryBooks = () => {
     navigation.navigate("ReadBook", {
       book: {
         title: book.title || "Untitled",
-        content: book.content,
+        content: bookContent,
         author: book.author || "Unknown Author",
         description: book.description || "",
         category: book.category || "Uncategorized",
-        pdfUrl: book.pdfFile || null,
+        pdfUrl: book.pdfFile || book.file || null,
       },
     });
   };
@@ -107,12 +246,16 @@ const CategoryBooks = () => {
       <ScrollView style={styles.contentContainer}>
         {books.map((book) => (
           <TouchableOpacity
-            key={book._id}
+            key={book._id || book.id}
             style={styles.bookCard}
             onPress={() => handleBookPress(book)}
           >
             <Image
-              source={{ uri: `${API}${book.coverImage}` }}
+              source={
+                book.coverImage && typeof book.coverImage === "number"
+                  ? book.coverImage // local require
+                  : { uri: `${API}${book.coverImage}` } // API string
+              }
               style={styles.bookCover}
               resizeMode="cover"
             />
@@ -210,4 +353,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoryBooks;
+export default Categorybooks;

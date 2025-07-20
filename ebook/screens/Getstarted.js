@@ -8,7 +8,7 @@ import { useFonts } from 'expo-font';
 const Getstarted = () => {
   const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
-    'Aclonica-Regular': require('../assets/fonts/Aclonica-Regular.ttf'), // Load the font
+    'Aclonica-Regular': require('../assets/fonts/Aclonica-Regular.ttf'), 
   });
 
   const handleGetStarted = () => {
@@ -20,7 +20,7 @@ const Getstarted = () => {
       <View style={styles.loadingContainer}>
         <Text>Loading...</Text>
       </View>
-    ); // Show loading indicator while font is loading
+    ); 
   }
 
   return (
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 10,
-    fontFamily: 'Roboto', // Use the loaded font
+    fontFamily: 'Roboto', 
     color: '#000000',
   },
   subtitle: {

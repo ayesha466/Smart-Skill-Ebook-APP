@@ -34,8 +34,8 @@ const Aireadbook = ({ route }) => {
     { title: "The Cyberpunk City", genre: "Fiction" },
     { title: "Whispers of the Forgotten Forest", genre: "Fiction" },
     { title: "The Last Starship", genre: "Fiction" },
-    { title: "Atomic Habits", genre: "Self-Development" }, // Added Self-Development book
-    { title: "World War II: A Global History", genre: "History" }, // Added History book
+    { title: "Atomic Habits", genre: "Self-Development" },
+    { title: "World War II: A Global History", genre: "History" }, 
   ]);
 
   const [selectedBookText, setSelectedBookText] = useState(initialBookTitle);
@@ -80,12 +80,12 @@ const Aireadbook = ({ route }) => {
       const data = await response.json();
       console.log("Raw API Response:", JSON.stringify(data, null, 2));
 
-      // Check if we have a valid book response
+     
       if (data.success && data.book) {
         const { book } = data;
         console.log("Generated book:", book);
         
-        // Navigate to ReadBook with the generated content
+        
         navigation.navigate("ReadBook", {
           book: {
             title: book.title,
@@ -148,7 +148,7 @@ const Aireadbook = ({ route }) => {
             <TouchableOpacity
               key={index}
               style={styles.bookItem}
-              onPress={() => setSelectedBookText(book.title)} // Set selected book on tap
+              onPress={() => setSelectedBookText(book.title)}
             >
               <Ionicons name="book-outline" size={20} color="#4A235A" />
               <Text style={styles.bookTitle}>{book.title}</Text>
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#510851",
     padding: 10,
-    marginBottom: 30, // Increased marginBottom to create space
+    marginBottom: 30,
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 10,
@@ -248,13 +248,12 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
-    // justifyContent: "center", // Removed justifyContent center
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingVertical: height * 0.03, // Reduced vertical padding
+    paddingVertical: height * 0.03, 
   },
   genreContainer: {
-    marginBottom: height * 0.03, // Reduced marginBottom
+    marginBottom: height * 0.03,
     width: "100%",
   },
   genreButton: {
@@ -275,7 +274,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   recommendContainer: {
-    marginBottom: height * 0.03, // Reduced marginBottom
+    marginBottom: height * 0.03,
     width: "100%",
   },
   label: {
@@ -298,7 +297,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   inputContainer: {
-    marginBottom: height * 0.03, // Reduced marginBottom
+    marginBottom: height * 0.03, 
     width: "100%",
   },
   inputBox: {

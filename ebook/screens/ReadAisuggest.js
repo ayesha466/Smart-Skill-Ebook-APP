@@ -96,10 +96,10 @@ const Readaisuggest = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f0f0f0', // Light gray background
+        backgroundColor: '#f0f0f0',
     },
     header: {
-        backgroundColor: '#510851', // Dark purple header
+        backgroundColor: '#510851',
         padding: 15,
         flexDirection: 'row',
         alignItems: 'center',
@@ -113,14 +113,14 @@ const styles = StyleSheet.create({
     inputContainer: {
         padding: 20,
         marginBottom: 20,
-        backgroundColor: '#e0e0e0', // Slightly darker gray input area
+        backgroundColor: '#e0e0e0', 
         borderRadius: 10,
     },
     label: {
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 8,
-        color: '#333', // Dark text
+        color: '#333', 
     },
     input: {
         backgroundColor: 'white',
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     getAIStoryButton: {
-        backgroundColor: '#510851', // Dark purple button
+        backgroundColor: '#510851', 
         padding: 15,
         borderRadius: 10,
         alignItems: 'center',
@@ -149,13 +149,13 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         marginBottom: 15,
-        color: '#510851', // Dark purple title
+        color: '#510851', 
         textAlign: 'center',
     },
     bookContent: {
         fontSize: 16,
         lineHeight: 24,
-        color: '#444', // Slightly lighter dark text for content
+        color: '#444', 
     },
     errorText: {
         color: 'red',

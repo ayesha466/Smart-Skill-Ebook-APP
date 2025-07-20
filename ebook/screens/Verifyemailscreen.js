@@ -27,9 +27,9 @@ const Verifyemailscreen = () => {
       newOtp[index] = text;
       setOtp(newOtp);
 
-      // Auto-focus next input
+    
       if (text.length === 1 && index < 5) {
-        // Find the next input and focus it
+       
         const nextInput = index + 1;
         const inputRef = `otpInput${nextInput}`;
         if (this[inputRef]) {
@@ -93,7 +93,7 @@ const Verifyemailscreen = () => {
 
       if (response.ok) {
         Alert.alert('Success', 'New OTP has been sent to your email');
-        // Clear existing OTP
+        
         setOtp(["", "", "", "", "", ""]);
       } else {
         Alert.alert('Error', data.error || 'Failed to resend OTP');

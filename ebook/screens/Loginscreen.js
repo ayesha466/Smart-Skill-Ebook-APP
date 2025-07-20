@@ -11,11 +11,10 @@ import {
   Image,
   Alert,
   ActivityIndicator,
-  ImageBackground, // Import ImageBackground
+  ImageBackground, 
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-// import tw from 'tailwindcss-react-native';
 
 
 const Loginscreen = () => {
@@ -40,7 +39,7 @@ const Loginscreen = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: username.toLowerCase(), // Send lowercase username to server
+          username: username.toLowerCase(), 
           password,
         }),
       });
@@ -50,7 +49,7 @@ const Loginscreen = () => {
       setLoading(false);
   
       if (response.ok) {
-        // Store username in AsyncStorage
+    
         await AsyncStorage.setItem('username', username);
         Alert.alert('Success', data.message || 'Login successful!');
         navigation.navigate('Choosemodescreen');
@@ -145,7 +144,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(230, 204, 230, 0.7)', // Semi-transparent background
+    backgroundColor: 'rgba(230, 204, 230, 0.7)', 
   },
   logo: {
     width: 130,

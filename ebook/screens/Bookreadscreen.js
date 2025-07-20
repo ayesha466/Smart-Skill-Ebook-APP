@@ -45,7 +45,7 @@ const Bookreadscreen = () => {
     };
 
     const handleCategoryPress = (category) => {
-        navigation.navigate('CategoryBooks', { category });
+        navigation.navigate('Categorybooks', { category });
     };
 
     const toggleSidebar = () => {
@@ -64,7 +64,6 @@ const Bookreadscreen = () => {
         navigation.navigate('Trendingbooks', { books: trendingBooks });
     };
 
-    // Map category titles to their corresponding image assets
     const getCategoryImage = (title) => {
         switch (title) {
             case 'Non-Fiction':

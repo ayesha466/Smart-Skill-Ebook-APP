@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import bg from '../assets/choosemodebg.png';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation
+import { useNavigation } from '@react-navigation/native';
 
 const Choosemodescreen = () => {
-  const navigation = useNavigation(); // Initialize navigation
+  const navigation = useNavigation(); 
 
   const handleReadBook = () => {
-    navigation.navigate('Bookreadscreen'); // Navigate to Bookreadscreen
+    navigation.navigate('Bookreadscreen'); 
   };
   const handleWriteBook = () => {
-    navigation.navigate('Bookwritescreen'); // Navigate to Bookwritescreen
+    navigation.navigate('Bookwritescreen'); 
   };
 
   return (
@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
   },
   modeSection: {
     flex: 1,
-    justifyContent: 'center', // Center vertically
-    alignItems: 'center', // Center horizontally
+    justifyContent: 'center', 
+    alignItems: 'center', 
   },
   chooseModeText: {
     fontSize: 25,

@@ -8,7 +8,7 @@ import {
   Image,
   Alert,
   ActivityIndicator,
-  ImageBackground, // Import ImageBackground
+  ImageBackground, 
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
@@ -26,13 +26,13 @@ const Signupscreen = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
-    // Step 1: Validate form input
+    
     if (!fullName || !username || !email || !password || !confirmPassword) {
       Alert.alert('Error', 'Please complete all required fields to sign up.');
       return;
     }
 
-    // Validate email format
+    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       Alert.alert('Error', 'Please enter a valid email address.');
@@ -47,7 +47,7 @@ const Signupscreen = () => {
     setLoading(true);
   
     try {
-      // Step 2: Call the backend signup API
+      
       const response = await fetch(`${API}/signup`, {
         method: 'POST',
         headers: {
@@ -61,24 +61,24 @@ const Signupscreen = () => {
         }),
       });
   
-      // Step 3: Handle the response from the backend
+      
       const data = await response.json();
       setLoading(false);
   
       if (response.status === 201) {
-        // Signup success - navigate to Login screen
+       
         Alert.alert('Success', 'Signup successful!', [
           { text: 'OK', onPress: () => navigation.navigate('Loginscreen') },
         ]);
       } else if (response.status === 400) {
-        // Username or email already exists
+        
         Alert.alert('Error', data.error || 'Username or email already exists.');
       } else {
-        // Other errors (server or generic issues)
+       
         Alert.alert('Error', data.error || 'Signup failed. Please try again.');
       }
     } catch (error) {
-      // Step 4: Handle network or unexpected errors
+     
       setLoading(false);
       console.error('Signup Error:', error);
       Alert.alert('Error', 'Network error. Please try again.');
@@ -191,13 +191,13 @@ const Signupscreen = () => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover', // or 'stretch'
+    resizeMode: 'cover', 
   },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(216, 191, 216, 0.8)', // Semi-transparent background
+    backgroundColor: 'rgba(216, 191, 216, 0.8)', 
   },
   logo: {
     width: 130,

@@ -62,7 +62,7 @@ const Ebooktitle = ({ navigation }) => {
                 throw new Error('Invalid response from server');
             }
 
-            // Navigate to ReadBook with the generated content
+            
             navigation.navigate('ReadBook', {
                 book: {
                     title: data.title || topic,

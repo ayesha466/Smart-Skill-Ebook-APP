@@ -3,23 +3,23 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions,
   ActivityIndicator,
-  Alert,
+  TouchableOpacity,
   Platform,
   StatusBar,
+  Dimensions,
+  Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { WebView } from "react-native-webview";
 
 const { width, height } = Dimensions.get("window");
 
 const ReadBook = () => {
-  const [fontSize, setFontSize] = useState(16);
   const [loading, setLoading] = useState(true);
-  const [book, setBook] = useState(null);
+  const [pdfUri, setPdfUri] = useState("");
+  const [bookTitle, setBookTitle] = useState("");
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -27,65 +27,30 @@ const ReadBook = () => {
     const loadBook = () => {
       try {
         const { book: bookData, title, content } = route.params;
-
         if (!bookData && !content) {
           throw new Error("No book data provided");
         }
-
-        // Handle both direct content and book object
         const bookContent = bookData?.content || content;
-        const bookTitle = bookData?.title || title;
-
-        if (!bookContent) {
-          console.error("Book data received:", { bookData, title, content });
-          throw new Error("No content found in book data. Please ensure the book has content before opening.");
+        const bookTitle = bookData?.title || title || "Untitled";
+        setBookTitle(bookTitle);
+        let uri = "";
+        if (typeof bookContent === "number") {
+          // Local asset, get its URI
+          const asset = Image.resolveAssetSource(bookContent);
+          uri = asset.uri;
+        } else if (typeof bookContent === "string") {
+          uri = bookContent;
         }
-
-        // Ensure content is a string and handle different content formats
-        let processedContent;
-        if (typeof bookContent === 'object') {
-          if (bookContent.text) {
-            processedContent = bookContent.text;
-          } else if (bookContent.content) {
-            processedContent = bookContent.content;
-          } else {
-            processedContent = JSON.stringify(bookContent);
-          }
-        } else {
-          processedContent = bookContent;
-        }
-
-        setBook({
-          title: bookTitle || "Untitled",
-          content: processedContent,
-        });
+        setPdfUri(uri);
       } catch (error) {
         console.error("Error loading book:", error);
-        Alert.alert(
-          "Error Loading Book",
-          error.message || "Failed to load book content. Please try again.",
-          [
-            {
-              text: "Go Back",
-              onPress: () => navigation.goBack(),
-            },
-          ]
-        );
+        setPdfUri("");
       } finally {
         setLoading(false);
       }
     };
-
     loadBook();
   }, [route.params]);
-
-  const increaseFontSize = () => {
-    setFontSize((prev) => Math.min(prev + 2, 24));
-  };
-
-  const decreaseFontSize = () => {
-    setFontSize((prev) => Math.max(prev - 2, 12));
-  };
 
   if (loading) {
     return (
@@ -96,7 +61,7 @@ const ReadBook = () => {
     );
   }
 
-  if (!book) {
+  if (!pdfUri) {
     return (
       <View style={styles.errorContainer}>
         <Text style={styles.errorText}>Failed to load book content</Text>
@@ -120,29 +85,26 @@ const ReadBook = () => {
           <Icon name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.title} numberOfLines={1}>
-          {book.title || "Untitled"}
+          {bookTitle}
         </Text>
-        <View style={styles.fontControls}>
-          <TouchableOpacity
-            onPress={decreaseFontSize}
-            style={styles.fontButton}
-          >
-            <Text style={styles.fontButtonText}>A-</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={increaseFontSize}
-            style={styles.fontButton}
-          >
-            <Text style={styles.fontButtonText}>A+</Text>
-          </TouchableOpacity>
-        </View>
       </View>
-
-      <ScrollView style={styles.contentContainer}>
-        <Text style={[styles.content, { fontSize }]}>
-          {book.content || "No content available"}
-        </Text>
-      </ScrollView>
+      <WebView
+        source={{
+          uri: `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(
+            pdfUri
+          )}`,
+        }}
+        style={styles.webview}
+        javaScriptEnabled
+        domStorageEnabled
+        startInLoadingState
+        renderLoading={() => (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#510851" />
+            <Text style={styles.loadingText}>Loading PDF...</Text>
+          </View>
+        )}
+      />
     </View>
   );
 };
@@ -204,26 +166,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginRight: 10,
   },
-  fontControls: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  fontButton: {
-    padding: 5,
-    marginLeft: 10,
-  },
-  fontButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  contentContainer: {
+  webview: {
+    width: width,
+    height: height,
     flex: 1,
-    padding: 20,
-  },
-  content: {
-    lineHeight: 24,
-    color: "#333",
   },
 });
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, StatusBar, Image, TouchableOpacity } from 'react-native';
 import logo from '../assets/logo.png';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation
+import { useNavigation } from '@react-navigation/native'; 
 
 const SplashScreen = () => {
-  const navigation = useNavigation(); // Initialize navigation
+  const navigation = useNavigation(); 
 
   const handleLogoPress = () => {
-    navigation.navigate('Getstarted'); // Navigate to Getstarted screen
+    navigation.navigate('Getstarted'); 
   };
 
   return (

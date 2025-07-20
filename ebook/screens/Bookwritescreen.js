@@ -1,5 +1,3 @@
-// Bookwritescreen.js
-
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Animated, Dimensions, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -10,14 +8,42 @@ const { width } = Dimensions.get('window');
 const scale = width / 375;
 const normalize = (size) => size * scale;
 
+const templatesData = [
+  {
+    id: 'personal-development',
+    title: 'Ebook on Personal Development',
+    icon: require('../assets/personal_development.png'),
+  },
+  {
+    id: 'health-wellness',
+    title: 'Ebook on Health & Wellness',
+    icon: require('../assets/health_wellness.png'),
+  },
+  {
+    id: 'healthy-diet',
+    title: 'Healthy & Special diet',
+    icon: require('../assets/diet.png'),
+  },
+  {
+    id: 'education-academics',
+    title: 'Education & Academics',
+    icon: require('../assets/education.png'),
+  },
+  {
+    id: 'cultural-heritage',
+    title: 'Cultural & Heritage ebook',
+    icon: require('../assets/culture.png'),
+  },
+];
+
 const Bookwritescreen = () => {
     const navigation = useNavigation();
     const [isSidebarVisible, setSidebarVisible] = useState(false);
-    const sidebarAnim = useState(new Animated.Value(-300))[0];
+    const sidebarAnim = useState(new Animated.Value(-width * 0.8))[0];
 
     const toggleSidebar = () => {
         Animated.timing(sidebarAnim, {
-            toValue: isSidebarVisible ? -300 : 0,
+            toValue: isSidebarVisible ? -width * 0.8 : 0,
             duration: 300,
             useNativeDriver: true,
         }).start(() => setSidebarVisible(!isSidebarVisible));
@@ -28,7 +54,11 @@ const Bookwritescreen = () => {
     };
 
     const handleBeginWritingPress = () => {
-        navigation.navigate('Beginwrite'); // Updated navigation to 'Beginwrite'
+        navigation.navigate('TemplateScreen', { templateTitle: 'Custom Ebook' });
+    };
+
+    const handleTemplateItemPress = (templateTitle) => {
+        navigation.navigate('TemplateScreen', { templateTitle: templateTitle });
     };
 
     return (
@@ -64,41 +94,31 @@ const Bookwritescreen = () => {
 
             <View style={styles.Containertemplates}>
                 <Text style={styles.templatesTitle}>Templates</Text>
-                <ScrollView 
+                <ScrollView
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
                 >
-                    <TouchableOpacity style={styles.templateItem}>
-                        <Image source={require('../assets/personal_development.png')} style={styles.templateIcon} />
-                        <Text style={styles.templateText}>Ebook on Personal Development</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.templateItem}>
-                        <Image source={require('../assets/health_wellness.png')} style={styles.templateIcon} />
-                        <Text style={styles.templateText}>Ebook on Health & Wellness</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.templateItem}>
-                        <Image source={require('../assets/diet.png')} style={styles.templateIcon} />
-                        <Text style={styles.templateText}>Healthy & Special diet</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.templateItem}>
-                        <Image source={require('../assets/education.png')} style={styles.templateIcon} />
-                        <Text style={styles.templateText}>Education & Academics</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.templateItem}>
-                        <Image source={require('../assets/culture.png')} style={styles.templateIcon} />
-                        <Text style={styles.templateText}>Cultural & Heritage ebook</Text>
-                    </TouchableOpacity>
+                    {templatesData.map((template) => (
+                        <TouchableOpacity
+                            key={template.id}
+                            style={styles.templateItem}
+                            onPress={() => handleTemplateItemPress(template.title)}
+                        >
+                            <Image source={template.icon} style={styles.templateIcon} />
+                            <Text style={styles.templateText}>{template.title}</Text>
+                        </TouchableOpacity>
+                    ))}
                 </ScrollView>
             </View>
 
             <View style={styles.bottomNav}>
-                <TouchableOpacity 
-                    style={styles.navButton} 
+                <TouchableOpacity
+                    style={styles.navButton}
                     onPress={() => navigation.navigate('Choosemodescreen')}
                 >
                     <Text style={styles.navButtonText}>⬅️</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.navButton}>
+                <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Bookreadscreen')}>
                     <Text style={styles.navButtonText}>🏠</Text>
                 </TouchableOpacity>
                 <TouchableOpacity

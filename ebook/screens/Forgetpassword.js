@@ -48,7 +48,7 @@ const Forgetpassword = ({ navigation }) => {
       }
     } catch (error) {
       console.error('Error sending OTP:', error);
-      // Check if it's a network error
+     
       if (error.message === 'Network request failed') {
         Alert.alert(
           'Network Error',
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     width: '100%',
     borderRadius: 30,
-    paddingHorizontal: 15, // Reduced horizontal padding
+    paddingHorizontal: 15,
     paddingVertical: 10,
     borderWidth: 1,
     borderColor: 'rgba(204, 204, 204, 0.3)',
@@ -240,15 +240,15 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 50, // Reduced height of input field
-    fontSize: 16, // Reduced font size
+    height: 50, 
+    fontSize: 16, 
     color: '#333',
   },
   button: {
-    width: '80%', // Reduced width of button
+    width: '80%', 
     backgroundColor: '#800080',
-    paddingVertical: 15, // Reduced vertical padding
-    borderRadius: 25, // More rounded corners
+    paddingVertical: 15, 
+    borderRadius: 25,
     alignItems: 'center',
     marginTop: 25,
     shadowColor: '#000',
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontSize: 18, // Reduced font size
+    fontSize: 18, 
     fontWeight: 'bold',
   },
   backToLoginContainer: {

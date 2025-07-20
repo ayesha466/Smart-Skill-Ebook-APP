@@ -1,5 +1,3 @@
-// Beginwrite.js (User-Driven Book Writing)
-
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -25,8 +23,7 @@ const Beginwrite = () => {
     };
 
     const handleSave = () => {
-        // Implement your save logic here.
-        // This could involve saving to local storage, a database, or sending data to an API.
+
         console.log({
             title: bookTitle,
             content: bookContent,
@@ -94,7 +91,7 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: '#510851',
-        paddingTop: 20, // Adjust for status bar
+        paddingTop: 20,
         paddingBottom: normalize(15),
         paddingHorizontal: normalize(15),
         flexDirection: 'row',
@@ -109,9 +106,9 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     contentContainer: {
-        flex: 1, // Changed flexGrow to flex
+        flex: 1, 
         padding: normalize(20),
-        paddingTop: normalize(20) + normalize(15) + 20, // Adjust top padding for header
+        paddingTop: normalize(20) + normalize(15) + 20, 
     },
     label: {
         fontSize: normalize(16),
@@ -127,7 +124,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#fff',
         padding: normalize(15),
-        marginBottom: normalize(15), // Increased marginBottom for spacing
+        marginBottom: normalize(15), 
         borderRadius: normalize(8),
         borderWidth: 1,
         borderColor: '#ccc',
@@ -163,7 +160,7 @@ const styles = StyleSheet.create({
         marginRight: normalize(10),
     },
     addChapterButton: {
-        backgroundColor: '#510851', // Changed background color to #510851
+        backgroundColor: '#510851', 
         padding: normalize(10),
         borderRadius: normalize(8),
     },
@@ -172,12 +169,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     chapterItem: {
-        backgroundColor: '#C8A2C8', // Changed background color
+        backgroundColor: '#C8A2C8', 
         padding: normalize(15),
         marginBottom: normalize(8),
         borderRadius: normalize(8),
         borderWidth: 1,
-        borderColor: '#510851', // Changed border color to dark purple
+        borderColor: '#510851', 
     },
     saveButton: {
         backgroundColor: '#510851',

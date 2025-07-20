@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   logoutButton: {
     backgroundColor: 'rgba(105, 40, 105, 0.7)',
     paddingVertical: 12,
-    paddingHorizontal: 30, // Increased horizontal padding
+    paddingHorizontal: 30, 
     borderRadius: 10,
     alignItems: 'center',
     flexDirection: 'row',

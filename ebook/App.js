@@ -2,8 +2,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import SplashScreen from './screens/Splashscreen'; // Corrected import
-import Getstarted from './screens/Getstarted'; // Create this screen
+import SplashScreen from './screens/Splashscreen';
+import Getstarted from './screens/Getstarted'; 
 import LoginScreen from './screens/Loginscreen';
 import Forgetpassword from './screens/Forgetpassword';
 import Verifyemailscreen from './screens/Verifyemailscreen';
@@ -19,9 +19,9 @@ import Ebooktitle from './screens/Ebooktitle';
 import Beginwrite from './screens/Beginwrite';
 import Trendingbooks from './screens/Trendingbooks';
 import ReadBook from './screens/ReadBook';
-import CategoryBooks from './screens/CategoryBooks';
+import Categorybooks from './screens/Categorybooks';
 import Readaisuggest from './screens/ReadAisuggest';
-
+import TemplateScreen from './screens/Templatescreen';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -45,11 +45,12 @@ export default function App() {
         <Stack.Screen name="Beginwrite" component={Beginwrite} />
         <Stack.Screen name="Trendingbooks" component={Trendingbooks} />
         <Stack.Screen name="ReadBook" component={ReadBook} />
-        <Stack.Screen name="CategoryBooks" component={CategoryBooks} />
+        <Stack.Screen name="Categorybooks" component={Categorybooks} />
         <Stack.Screen name="Readaisuggest" component={Readaisuggest} />
+        <Stack.Screen name="TemplateScreen" component={TemplateScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-// Remove the original styles, as SplashScreen has its own
