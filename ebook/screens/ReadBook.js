@@ -9,6 +9,7 @@ import {
   StatusBar,
   Dimensions,
   Image,
+  ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -18,8 +19,9 @@ const { width, height } = Dimensions.get("window");
 
 const ReadBook = () => {
   const [loading, setLoading] = useState(true);
-  const [pdfUri, setPdfUri] = useState("");
   const [bookTitle, setBookTitle] = useState("");
+  const [bookContent, setBookContent] = useState("");
+  const [pdfUri, setPdfUri] = useState("");
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -27,24 +29,23 @@ const ReadBook = () => {
     const loadBook = () => {
       try {
         const { book: bookData, title, content } = route.params;
-        if (!bookData && !content) {
-          throw new Error("No book data provided");
-        }
-        const bookContent = bookData?.content || content;
         const bookTitle = bookData?.title || title || "Untitled";
         setBookTitle(bookTitle);
-        let uri = "";
-        if (typeof bookContent === "number") {
-          // Local asset, get its URI
-          const asset = Image.resolveAssetSource(bookContent);
-          uri = asset.uri;
-        } else if (typeof bookContent === "string") {
-          uri = bookContent;
+
+        const contentValue =
+          bookData?.content || content || bookData?.file || "";
+        if (
+          typeof contentValue === "string" &&
+          contentValue.trim().toLowerCase().endsWith(".pdf")
+        ) {
+          setPdfUri(contentValue);
+        } else if (typeof contentValue === "string") {
+          setBookContent(contentValue);
+        } else if (typeof contentValue === "object") {
+          setBookContent(JSON.stringify(contentValue, null, 2));
         }
-        setPdfUri(uri);
       } catch (error) {
-        console.error("Error loading book:", error);
-        setPdfUri("");
+        setBookContent("Failed to load book content.");
       } finally {
         setLoading(false);
       }
@@ -57,20 +58,6 @@ const ReadBook = () => {
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#510851" />
         <Text style={styles.loadingText}>Loading book content...</Text>
-      </View>
-    );
-  }
-
-  if (!pdfUri) {
-    return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>Failed to load book content</Text>
-        <TouchableOpacity
-          style={styles.retryButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.retryButtonText}>Go Back</Text>
-        </TouchableOpacity>
       </View>
     );
   }
@@ -88,23 +75,29 @@ const ReadBook = () => {
           {bookTitle}
         </Text>
       </View>
-      <WebView
-        source={{
-          uri: `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(
-            pdfUri
-          )}`,
-        }}
-        style={styles.webview}
-        javaScriptEnabled
-        domStorageEnabled
-        startInLoadingState
-        renderLoading={() => (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#510851" />
-            <Text style={styles.loadingText}>Loading PDF...</Text>
-          </View>
-        )}
-      />
+      {pdfUri ? (
+        <WebView
+          source={{
+            uri: `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(
+              pdfUri
+            )}`,
+          }}
+          style={styles.webview}
+          javaScriptEnabled
+          domStorageEnabled
+          startInLoadingState
+          renderLoading={() => (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color="#510851" />
+              <Text style={styles.loadingText}>Loading PDF...</Text>
+            </View>
+          )}
+        />
+      ) : (
+        <ScrollView style={styles.contentContainer}>
+          <Text style={styles.content}>{bookContent}</Text>
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -170,6 +163,15 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     flex: 1,
+  },
+  contentContainer: {
+    flex: 1,
+    padding: 20,
+  },
+  content: {
+    lineHeight: 24,
+    color: "#333",
+    fontSize: 16,
   },
 });
 
