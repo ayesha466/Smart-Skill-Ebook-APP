@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Animated, 
 import { useNavigation } from '@react-navigation/native';
 import Sidebar from '../component/Sidebar';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Beginwrite from './Beginwrite';
 
 const { width } = Dimensions.get('window');
 const scale = width / 375;
@@ -54,7 +55,7 @@ const Bookwritescreen = () => {
     };
 
     const handleBeginWritingPress = () => {
-        navigation.navigate('TemplateScreen', { templateTitle: 'Custom Ebook' });
+        navigation.navigate('Beginwrite');
     };
 
     const handleTemplateItemPress = (templateTitle) => {
