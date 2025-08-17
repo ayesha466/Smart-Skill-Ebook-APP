@@ -654,6 +654,67 @@ app.post("/api/generate-ai-book", async (req, res) => {
   }
 });
 
+//============================================AI template genrative============================================
+app.post("/api/generate-ai-section", async (req, res) => {
+  try {
+      // The promptTopic is passed from the frontend's API call
+      const { promptTopic } = req.body;
+
+      if (!promptTopic) {
+          return res.status(400).json({ error: "promptTopic is required" });
+      }
+
+      console.log("Generating AI section with topic:", promptTopic);
+
+      // Construct a specific prompt for the AI
+      const prompt = `Generate a detailed and engaging paragraph or short section about "${promptTopic}" for an ebook chapter. Focus on providing informative and easy-to-understand content. Limit the response to approximately 200 words.`;
+
+      // Make the call to the Gemini API
+      const response = await axios.post(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+          {
+              contents: [
+                  {
+                      parts: [{ text: prompt }],
+                  },
+              ],
+          },
+          {
+              headers: {
+                  "Content-Type": "application/json",
+              },
+          }
+      );
+
+      console.log("Gemini API Response:", JSON.stringify(response.data, null, 2));
+
+      if (
+          !response.data ||
+          !response.data.candidates ||
+          !response.data.candidates[0].content.parts[0].text
+      ) {
+          throw new Error("Invalid response from Gemini API");
+      }
+
+      const generatedContent = response.data.candidates[0].content.parts[0].text;
+      console.log("Generated Content:", generatedContent);
+
+      // Send the generated content back to the frontend
+      res.json({
+          success: true,
+          generatedContent,
+      });
+
+  } catch (error) {
+      console.error("Error generating AI section:", error);
+      res.status(500).json({
+          error: "Failed to generate AI section",
+          details: error.message,
+      });
+  }
+});
+
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
