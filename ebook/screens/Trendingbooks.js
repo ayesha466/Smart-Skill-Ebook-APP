@@ -33,7 +33,7 @@ const Trendingbooks = () => {
         "A murder mystery and coming-of-age story set in the marshes of North Carolina.",
       coverImage: require("../assets/crawdads.webp"),
       content:
-        "https://uis.brage.unit.no/uis-xmlui/bitstream/handle/11250/3074031/no.uis:inspera:146730262:65151143.pdf?sequence=1",
+        "https://ia803106.us.archive.org/27/items/wherethecrawdadssing/Where-the-Crawdads-Sing.pdf",
       views: 1200,
     },
     {
