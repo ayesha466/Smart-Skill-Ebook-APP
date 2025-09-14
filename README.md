@@ -213,3 +213,8 @@ MongoDB - For the robust database solution
 Open Source Contributors - For the libraries and tools that made this possible
 
 
+* **Standee Design (PDF):** [https://github.com/ayesha466/Smart-Skill-Ebook-APP/blob/6bb62bc51b9731d81a2584358ca4f2ff6c2562ef/ebook%20flex%20pdf.pdf]
+
+* **Figma Design (PDF):** [https://github.com/ayesha466/Smart-Skill-Ebook-APP/blob/91f89e0ce2c1863d8d249aa6d5b32c062d9a85fa/Smart%20Building%20E-book%20APP.zip]
+
+* **Documentation:** [https://github.com/ayesha466/Smart-Skill-Ebook-APP/blob/a2368d78f7a8af65b21da5921476ad7b8a4cfba9/FYP%20Document%20report%20final%20.pdf]
