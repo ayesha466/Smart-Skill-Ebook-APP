@@ -73,15 +73,11 @@ Smart AI Ebook App is a full-stack mobile application that revolutionizes the wa
 
 ---
 
-## 🖼️ Screenshots
-
-_Please insert your app interface screenshots here._
-
 ---
 
-## ⚙️ Setup Instructions
+⚙️ Setup Instructions
 
-### 🧑‍💻 Clone the Repository
+ 🧑‍💻 Clone the Repository
 ```bash
 # Clone the main project
 git clone <repository-url>
@@ -90,21 +86,21 @@ cd ebook-app
 cd server
 git clone <server-repository-url>
 
-##📦 Install Dependencies
-###Frontend (React Native)
+📦 Install Dependencies
+Frontend (React Native)
 cd ebook
 npm install
 # or
 yarn install
 
-###Backend (Node.js)
+Backend (Node.js)
 cd server
 npm install
 # or
 yarn install
 
-##🔐 Configure Environment Variables
-###Backend Environment (.env)
+🔐 Configure Environment Variables
+Backend Environment (.env)
 # MongoDB Connection
 MONGODB_URI=mongodb://127.0.0.1:27017/ebook
 
@@ -118,11 +114,11 @@ GEMINI_API_KEY=your-gemini-api-key
 # Server Configuration
 PORT=3001
 
-###Frontend Configuration (config.js)
+Frontend Configuration (config.js)
 // Update the API endpoint in ebook/config.js
 export const API = "http://your-ip-address:3001";
 
-##▶️ Run the Project
+▶️ Run the Project
 ###Start Backend Server
 cd server
 npm start
@@ -144,7 +140,7 @@ npm run ios
 # For Web
 npm run web
 
-##📦 Deployment
+📦 Deployment
 ###Backend Deployment
 Environment Setup - Configure production environment variables
 
@@ -161,8 +157,8 @@ App Store Submission - Submit to Google Play Store and Apple App Store
 
 OTA Updates - Configure Expo updates for seamless app updates
 
-#👥 Team Contributions
-##👥 Developed By
+👥 Team Contributions
+👥 Developed By
 Ateeq ur Rehman.
 
 Role: Full-Stack Developer.
@@ -205,7 +201,7 @@ API Security - Protected endpoints and data validation
 
 File Upload Security - Safe file handling and validation
 
-#🙏 Acknowledgements
+🙏 Acknowledgements
 Google Gemini AI - For providing the AI content generation capabilities
 
 React Native Community - For the excellent documentation and support
@@ -215,4 +211,5 @@ Expo Team - For the amazing development platform
 MongoDB - For the robust database solution
 
 Open Source Contributors - For the libraries and tools that made this possible
+
 
